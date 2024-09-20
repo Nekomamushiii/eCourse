@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="~{fragments/head}"></th:block>
+
+<body>
+<!-- Topbar Start -->
+<th:block th:include="~{/fragments/toolbar}"></th:block>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<th:block th:include="~{fragments/navigation}"></th:block>
+<!-- Navbar End -->
+<div class="container-fluid bg-registration py-5" style="margin: 90px 0;">
+    <div class="container py-5">
+        <div class="row align-items-center">
+
+            <div class="col-lg-5">
+                <div class="card border-0">
+                    <div class="card-header bg-light text-center p-4">
+                        <h1 class="m-0">Add new course</h1>
+                    </div>
+                    <div class="card-body rounded-bottom bg-primary p-5">
+                        <form th:action="@{/course/add}"
+                              th:method="POST"
+                              th:object="${addCourseDTO}"
+                        >
+                            <div class="form-group">
+                                <input type="text"
+                                       name="title"
+                                       th:field="*{title}"
+                                       class="form-control border-0 p-4"
+                                       placeholder="Title* "
+                                       required="required" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text"
+                                       name="description"
+                                       th:field="*{description}"
+                                       class="form-control border-0 p-4"
+                                       placeholder="Description* "/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text"
+                                       name="instructor"
+                                       th:field="*{instructorName}"
+                                       class="form-control border-0 p-4"
+                                       placeholder="Instructor * "/>
+                            </div>
+                            <div class="form-group">
+                                <select class="custom-select border-0 px-4"
+                                        style="height: 47px;"
+                                        name="category"
+                                        th:value="*{category}">
+                                    <option selected>Select category</option>
+                                    <option th:each="categoryName : ${T(mn.mlc.elearining.entities.enums.CategoryEnum).values()}"
+                                            th:value="${categoryName}"
+                                            th:text="${categoryName.name().substring(0,1).toUpperCase()+categoryName.name().substring(1).toLowerCase()}"></option>
+                                </select>
+                            </div>
+                            <div>
+                                <button class="btn btn-dark btn-block border-0 py-3" type="submit">Add course</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer Start -->
+<th:block th:include="~{fragments/footer}"></th:block>
+<!-- Footer End -->
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="/lib/easing/easing.min.js"></script>
+<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Contact Javascript File -->
+<script src="/mail/jqBootstrapValidation.min.js"></script>
+<script src="/mail/contact.js"></script>
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
+</body>
+</html>

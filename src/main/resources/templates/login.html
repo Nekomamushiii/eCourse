@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:include="~{fragments/head}"></th:block>
+
+<th:block th:include="~{fragments/navigation}"></th:block>
+
+<body>
+
+<div class="container register-form">
+    <div class="form" style="margin-top: 50px;">
+        <div class="note">
+            <p style="font-size:130%;">Login <i class="fas fa-user fa-2x"></i></p>
+        </div>
+
+        <form th:action="@{/login}" th:method="POST">
+            <div class="form-content">
+                <div th:if="${param.error}" class="alert alert-dark" role="alert">
+                    Credentials combination does not exist
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input  type="text" class="form-control" name="username" placeholder="Username *" th:value="${username}" required/>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" placeholder="Password *" required/>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <button class="btn btn-primary btn-lg text-align=center" style="margin-top: 40px;" type="submit">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+
+<th:block th:include="~{fragments/footer}"></th:block>
+
+</html>

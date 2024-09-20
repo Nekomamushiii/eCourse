@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:include="~{fragments/head}"></th:block>
+
+<body>
+<th:block th:include="~{fragments/toolbar}"></th:block>
+<th:block th:include="~{fragments/navigation}"></th:block>
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">Courses</h5>
+            <h1 th:text="|${subjects.name} Courses|"></h1>
+        </div>
+        <div class="row">
+            <div th:each="course : ${courses}" class="col-lg-4 col-md-6 mb-4">
+                <div th:object="${course}" class="rounded overflow-hidden mb-2">
+                    <img class="img-fluid" th:src="${course.imageUrl}" th:alt="${course.id}">
+                    <div class="bg-secondary p-4">
+                        <div class="d-flex justify-content-between mb-3">
+                            <small class="m-0" th:text="|${course.getLessons().size()} Lessons|"><i class="fa fa-users text-primary mr-2"></i></small>
+                            <small class="m-0" th:text="|Teacher: ${course.instructorName}|"><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
+                        </div>
+                        <a class="h5" th:href="@{/lesson/all/{id}(id=${course.id})}" th:text="${course.title}"></a>
+                        <div class="border-top mt-4 pt-4">
+                            <div class="d-flex justify-content-between">
+                                <a th:href="@{/course/details/{id}(id=${course.id})}" class="m-0">Learn more</a>
+                                <th:block sec:authorize="hasAuthority('ADMIN')">
+                                    <a th:href="@{/course/all/{id}/lesson/add(id=${course.id})}" class="m-0"><i class="fa fa-plus text-primary mr-2"></i>Add lesson</a>
+                                </th:block>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">
+                <th:block sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{/course/add}" class="m-0"><i class="fa fa-plus text-primary mr-2"></i>Add Course</a>
+                </th:block>
+            </h5>
+        </div>
+    </div>
+</div>
+<th:block th:include="~{/fragments/footer}"></th:block>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="/lib/easing/easing.min.js"></script>
+<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Contact Javascript File -->
+<script src="/mail/jqBootstrapValidation.min.js"></script>
+<script src="/mail/contact.js"></script>
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
+</body>
+</html>

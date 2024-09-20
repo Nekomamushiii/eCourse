@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:include="~{fragments/head}"></th:block>
+
+<body>
+<th:block th:include="~{fragments/toolbar}"></th:block>
+<th:block th:include="~{fragments/navigation}"></th:block>
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+
+            <h1 th:text="${course.title}"></h1>
+        </div>
+        <div class="row">
+            <div th:each="lesson : ${lessons}" class="col-lg-4 col-md-6 mb-4">
+                <div th:object="${lesson}" class="rounded overflow-hidden mb-2">
+                    <div class="plyr__video-embed" th:id="'player-' + ${lesson.id}">
+                        <iframe th:src="'https://www.youtube.com/embed/' + ${lesson.getYoutubeUrl()}"
+                                allowfullscreen
+                                allow="autoplay; encrypted-media">
+                        </iframe>
+                    </div>
+
+
+                    <div class="bg-secondary p-4">
+                        <div class="d-flex justify-content-between mb-3">
+                            <small class="m-0" ><i class="fa fa-users text-primary mr-2"></i></small>
+                            <small class="m-0" ><i class="far fa-clock text-primary mr-2"></i>01h 30m</small>
+                        </div>
+                        <a class="h5" th:text="${lesson.title}"></a>
+                        <div class="border-top mt-4 pt-4">
+                            <div class="d-flex justify-content-between">
+
+                                <th:block sec:authorize="hasAuthority('ADMIN')">
+                                    <a href="/" class="m-0"><i class="fa fa-edit text-primary mr-2"></i>Edit</a>
+                                    <a th:href="@{/lesson/delete(id=${lesson.id})}" class="m-0"><i class="fa fa-trash text-primary mr-2"></i>Delete</a>
+                                </th:block>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">
+                <th:block sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{/course/all/{id}/lesson/add(id=${course.id})}" class="m-0"><i class="fa fa-plus text-primary mr-2"></i>Add lesson</a>
+                </th:block>
+            </h5>
+        </div>
+    </div>
+</div>
+<th:block th:include="~{/fragments/footer}"></th:block>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="/lib/easing/easing.min.js"></script>
+<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Contact Javascript File -->
+<script src="/mail/jqBootstrapValidation.min.js"></script>
+<script src="/mail/contact.js"></script>
+
+<!-- Template Javascript -->
+<script src="/js/main.js"></script>
+<script src="https://vjs.zencdn.net/7.21.0/video.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/videojs-youtube@2.6.1/dist/Youtube.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize Plyr for all elements that have IDs starting with 'player-'
+        const players = document.querySelectorAll('[id^="player-"]');
+        players.forEach(playerElement => {
+            const player = new Plyr(playerElement);
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
