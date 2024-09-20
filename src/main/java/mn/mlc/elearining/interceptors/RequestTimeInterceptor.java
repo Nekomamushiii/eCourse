@@ -10,7 +10,8 @@ public class RequestTimeInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         long startTime = System.currentTimeMillis();
-        System.out.println("Request URL: "+ request.getRequestURI() + "Start time = "+startTime);
+        request.setAttribute("startTime",startTime);
+        System.out.println("Request URL: "+ request.getRequestURL() + "Start time = "+startTime);
         return true;
     }
 
@@ -18,7 +19,7 @@ public class RequestTimeInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         long startTime =(Long) request.getAttribute("startTime");
         long endTime = System.currentTimeMillis();
-        System.out.println("Request URL: "+request.getRequestURI() + "End time = "+endTime);
-        System.out.println("Request URL: "+ request.getRequestURI() + "Time taken = "+(endTime-startTime));
+        System.out.println("Request URL: "+request.getRequestURL() + "End time = "+endTime);
+        System.out.println("Request URL: "+ request.getRequestURL() + "Time taken = "+(endTime-startTime));
     }
 }
