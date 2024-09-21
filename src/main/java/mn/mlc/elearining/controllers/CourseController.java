@@ -3,6 +3,7 @@ package mn.mlc.elearining.controllers;
 import jakarta.validation.Valid;
 import mn.mlc.elearining.entities.dtos.AddCourseDTO;
 import mn.mlc.elearining.entities.dtos.AddLessonDTO;
+import mn.mlc.elearining.entities.dtos.UserRegisterDTO;
 import mn.mlc.elearining.services.CategoryService;
 import mn.mlc.elearining.services.CourseService;
 import mn.mlc.elearining.services.LessonService;
@@ -59,15 +60,15 @@ public class CourseController {
     }
     @PostMapping("/add")
     public String addCourse(@Valid AddCourseDTO addCourseDTO,
-                            BindingResult bindingResult,
-                            RedirectAttributes redirectAttributes){
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("addCourseDTO",addCourseDTO)
                     .addFlashAttribute("org.springframework.validation.BindingResult.addCourseDTO",bindingResult);
             return "redirect:add-course";
         }
         courseService.addCourse(addCourseDTO);
-        return "redirect:/subject/all";
+        return "redirect:subject/all";
     }
     @GetMapping("/details/{id}")
     public String courseDetails(@PathVariable("id") Long id,Model model){

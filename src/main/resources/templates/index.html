@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <th:block th:include="~{fragments/head}"></th:block>
 
 <body>
@@ -124,18 +125,11 @@
                                 <div class="d-flex justify-content-between">
                                     <a th:href="@{/course/details/{id}(id=${course.id})}" class="m-0">Learn more</a>
                                     <a th:href="@{/course/details/{id}(id=${course.id})}" class="m-0" th:text="|${course.getComments().size()} Comments|"><i class="fa fa-comment text-primary mr-2"></i></a>
-
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px;">
-                    <th:block sec:authorize="hasAuthority('ADMIN')">
-                        <a th:href="@{/course/add}" class="m-0"><i class="fa fa-plus text-primary mr-2"></i>Add Course</a>
-                    </th:block>
-                </h5>
             </div>
         </div>
     </div>

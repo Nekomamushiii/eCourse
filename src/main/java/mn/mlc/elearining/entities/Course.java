@@ -7,6 +7,7 @@ import java.util.List;
 @Entity
 @Table(name = "courses")
 public class Course extends BaseEntity{
+    @Column(nullable = false)
     private String title;
     private String description;
     @ManyToOne

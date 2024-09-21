@@ -20,7 +20,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(request ->
                 request.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/","/login","/register","/img/**","/course","/teacher","/about","/single","/blog","/contact").permitAll()
+                        .requestMatchers("/","/test/**","/login","/register","/img/**","/subject/**","/course/**","/teacher","/about","/single","/blog","/contact").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(login ->

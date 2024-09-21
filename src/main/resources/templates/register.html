@@ -27,8 +27,7 @@
                                    th:field="*{username}"
                                    class="form-control"
                                     placeholder="Username *"
-                                    required minlength="2"
-                                    maxlength="10"/>
+                            />
                         </div>
                         <div th:each="error: ${#fields.errors('username')}" class="alert alert-dark"
                              role="alert" th:text="${error}">
@@ -68,7 +67,6 @@
                                    th:field="*{fullName}"
                                    class="form-control"
                                    placeholder="Full name *"
-                                   required minlength="2"
                                    maxlength="10"/>
                         </div>
                         <div th:each="error: ${#fields.errors('fullName')}" class="alert alert-dark"

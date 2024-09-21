@@ -6,8 +6,9 @@ import jakarta.validation.constraints.Size;
 import mn.mlc.elearining.entities.enums.CategoryEnum;
 
 public class AddCourseDTO {
+
+    @Size(min = 2,message = "Title length at least 2 character!")
     @NotNull
-    @Size(min = 2)
     private String title;
     @Column(columnDefinition = "TEXT")
     private String description;
