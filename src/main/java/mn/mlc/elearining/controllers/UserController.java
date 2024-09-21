@@ -3,7 +3,6 @@ package mn.mlc.elearining.controllers;
 import jakarta.validation.Valid;
 import mn.mlc.elearining.entities.dtos.UserRegisterDTO;
 import mn.mlc.elearining.services.UserService;
-import mn.mlc.elearining.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

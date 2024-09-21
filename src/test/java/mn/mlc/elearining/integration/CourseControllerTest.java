@@ -5,6 +5,7 @@ import mn.mlc.elearining.entities.Course;
 import mn.mlc.elearining.entities.enums.CategoryEnum;
 import mn.mlc.elearining.repositories.CategoryRepository;
 import mn.mlc.elearining.repositories.CourseRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -44,5 +46,25 @@ public class CourseControllerTest {
                 .andExpect(view().name("course"))
                 .andExpect(model().attributeExists("subjects"))
                 .andExpect(model().attributeExists("courses"));
+    }
+    @Test
+    @WithMockUser(value = "courseTest",roles = {"USER","ADMIN"})
+    void testShouldReturnOkStatusForAddCourse() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(
+                COURSE_CONTROLLER_PREFIX+"/add"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("add-course"))
+                .andExpect(model().attributeExists("addCourseDTO"));
+    }
+    @Test
+    @WithMockUser(value = "courseTest",roles = {"USER","ADMIN"})
+    void testAddCourse() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post(COURSE_CONTROLLER_PREFIX+"/add")
+                        .param("title","testCourse")
+                        .param("category","DEVELOPMENT")
+                        .param("instructor","courseTest")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection());
+        Assertions.assertEquals(1,courseRepository.count());
     }
 }

@@ -6,7 +6,6 @@ import mn.mlc.elearining.entities.User;
 import mn.mlc.elearining.entities.dtos.CommentCreationDTO;
 import mn.mlc.elearining.entities.view.CommentDisplayView;
 import mn.mlc.elearining.repositories.CommentRepository;
-import mn.mlc.elearining.repositories.CourseRepository;
 import mn.mlc.elearining.services.CommentService;
 import mn.mlc.elearining.services.CourseService;
 import mn.mlc.elearining.services.UserService;
