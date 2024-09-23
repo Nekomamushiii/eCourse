@@ -68,7 +68,7 @@ public class CourseController {
             return "redirect:add-course";
         }
         courseService.addCourse(addCourseDTO);
-        return "redirect:subject/all";
+        return "redirect:/subject/all";
     }
     @GetMapping("/details/{id}")
     public String courseDetails(@PathVariable("id") Long id,Model model){

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ApplicationScheduledTasks {
-    @Scheduled(cron = "0 0 2 * * ?")
+    @Scheduled(cron = "* * * * * ?")
     public void runDailyJob(){
         System.out.println("Running daily job at 2 am");
     }
